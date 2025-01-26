@@ -9,7 +9,7 @@ source:
   sha256: ac40292ebdfa6c620ac60b2fd0af771d1587e21cb15ea5ed8c07d5cf1edd35d6
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . -vv"
   entry_points:
@@ -17,9 +17,9 @@ build:
     - earthsim = earthsim.__main__:main
 
 requirements:
-  build:
+  host:
     # The python limitation is due to xmsmesher only being available on py36
-    - python >=3.6,<3.7
+    - python {{ python_min }}
     - pip
     - param >=1.7.0
     - pyct >=0.4.4
@@ -27,7 +27,7 @@ requirements:
     - pyviz_comms >=0.6.0
     - nodejs >=9.11.1
   run:
-    - python >=3.6,<3.7
+    - python >={{ python_min }},<3.7
     - param >=1.9.0,<2.0
     - holoviews >=1.12.3
     - datashader >=0.7.0
@@ -48,6 +48,8 @@ requirements:
     - xmsmesher
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - earthsim
 
