@@ -11,7 +11,7 @@ source:
 build:
   number: 1
   noarch: python
-  script: "{{ PYTHON }} -m pip install . -vv"
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - param = earthsim.__main__:param_main
     - earthsim = earthsim.__main__:main
@@ -20,6 +20,7 @@ requirements:
   host:
     # The python limitation is due to xmsmesher only being available on py36
     - python {{ python_min }}
+    - setuptools
     - pip
     - param >=1.7.0
     - pyct >=0.4.4
